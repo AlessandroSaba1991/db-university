@@ -72,4 +72,11 @@ _______________________________________________________________________
   ORDER BY `teachers`.`surname`, `teachers`.`name`;
 
 ## BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per superare ciascuno dei suoi esami
-- 
+- SELECT `students`. `surname` AS `student_surname`,`students`. `name` AS `student_name`,`courses`. `name`, COUNT(`exam_student`.`vote`) AS `attemps`
+  FROM `exam_student`
+  JOIN `students` ON `exam_student`.`student_id` = `students`.`id`
+  JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id`
+  JOIN `courses` ON `courses`.`id` = `exams`.`course_id`
+  WHERE `exam_student`.`vote`<18
+  GROUP BY `courses`.`id`, `students`. `id`
+  ORDER BY `students`. `surname`, `students`. `name`;
